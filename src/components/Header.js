@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import CustomLink from "./CustomLink";
-import { BsPerson } from "react-icons/bs";
 import { signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
+import useAdmin from "../hooks/useAdmin";
+
 
 const Header = () => {
   const [user] = useAuthState(auth);
+  // eslint-disable-next-line
+  const [isAdmin, isAdminLoading, fetchAdmin] = useAdmin(user);
+
+  useEffect(() => {
+    fetchAdmin();
+    // eslint-disable-next-line
+  }, [user]);
+
   return (
     <div className='navbar bg-base-100'>
       <div className='flex-1'>
@@ -48,9 +57,16 @@ const Header = () => {
               <li>
                 <Link to={"/"} className='justify-between'>
                   Profile
-                  <span className='badge'>New</span>
                 </Link>
               </li>
+
+              { user ? (
+                <li>
+                  <Link to={"/dashboard"} className='justify-between'>
+                    Dashboard
+                  </Link>
+                </li>
+              ) : null}
               <li>
                 <Link to={"/"}>Settings</Link>
               </li>
@@ -58,6 +74,7 @@ const Header = () => {
                 <button
                   onClick={() => {
                     signOut(auth);
+                    localStorage.removeItem("accessToken");
                   }}
                 >
                   Logout
