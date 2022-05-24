@@ -14,6 +14,7 @@ import AdminAuthRequired from './components/AdminAuthRequired';
 import AllUsers from './pages/AllUsers';
 import Profile from './pages/Profile';
 import NotFound from "./pages/NotFound";
+import AddReview from './pages/AddReview';
 
 function App() {
   return (
@@ -26,7 +27,8 @@ function App() {
           <Route path='login' element={<Login />}></Route>
           <Route path='register' element={<Register />}></Route>
           <Route path='dashboard' element={<AuthRequired><Dashboard /></AuthRequired>}>
-            <Route index path='profile' element={<AdminAuthRequired><Profile /></AdminAuthRequired>}></Route>
+            <Route index path='profile' element={<AuthRequired><Profile /></AuthRequired>}></Route>
+            <Route path='addreview' element={<AuthRequired><AddReview /></AuthRequired>}></Route>
             <Route path='addproduct' element={<AdminAuthRequired><AddProduct /></AdminAuthRequired>}></Route>
             <Route path='allproducts' element={<AdminAuthRequired><AllProducts /></AdminAuthRequired> }></Route>
             <Route path='manageadmins' element={<AdminAuthRequired><AllUsers /></AdminAuthRequired> }></Route>
