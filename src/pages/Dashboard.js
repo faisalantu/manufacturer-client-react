@@ -14,19 +14,20 @@ const Dashboard = () => {
     // eslint-disable-next-line
   }, [user]);
 
+
+  if (!user) return <Loading />;
   if (isAdminLoading) return <Loading />;
 
   return (
-    <div class='drawer drawer-mobile'>
-      <input id='dashboard-sidebar' type='checkbox' class='drawer-toggle' />
-      <div class='drawer-content'>
-        <h2 className='text-2xl font-bold text-stone-400 text-center'>
-          Dashboard
-        </h2>
-        <div className='navbar-end'>
+    <div className='drawer drawer-mobile'>
+      <input id='dashboard-sidebar' type='checkbox' className='drawer-toggle' />
+      <div className='drawer-content '>
+        <div className='text-2xl font-bold text-stone-400 flex md:block justify-between text-center px-1'>
+          <span>Dashboard</span>
+          <div className='navbar-end w-full text-right text-black'>
           <label
             tabIndex='1'
-            for='dashboard-sidebar'
+            htmlFor='dashboard-sidebar'
             className='btn btn-ghost lg:hidden'
           >
             <svg
@@ -45,32 +46,34 @@ const Dashboard = () => {
             </svg>
           </label>
         </div>
+        </div>
+        
         <Outlet></Outlet>
       </div>
-      <div class='drawer-side'>
-        <label for='dashboard-sidebar' class='drawer-overlay'></label>
-        <ul class='menu p-4 overflow-y-auto w-48 bg-base-100 text-base-content'>
-        <li>
-            <CustomLink to='/dashboard/review'>My Profile</CustomLink>
-          </li>
-          <li>
+      <div className='drawer-side'>
+        <label htmlFor='dashboard-sidebar' className='drawer-overlay'></label>
+        <ul className='menu p-4 overflow-y-auto w-48 bg-base-100 text-base-content'>
+        <div className="mt-1">
+            <CustomLink to='/dashboard/profile'>My Profile</CustomLink>
+          </div>
+          <div className="mt-1">
             <CustomLink to='/dashboard/addreview'>Add Reviews</CustomLink>
-          </li>
-          <li>
+          </div>
+          <div className="mt-1">
             <CustomLink to='/dashboard/reviews'>My Reviews</CustomLink>
-          </li>
+          </div>
 
           {isAdmin && (
             <>
-              <li>
+              <div className="mt-1">
                 <CustomLink to='/dashboard/addproduct'>Add Product</CustomLink>
-              </li>
-              <li>
+              </div>
+              <div className="mt-1">
                 <CustomLink to='/dashboard/allproducts'>Manage Products</CustomLink>
-              </li>
-              <li>
+              </div>
+              <div className="mt-1">
                 <CustomLink to='/dashboard/manageadmins'>Manage Admins</CustomLink>
-              </li>
+              </div>
             </>
           )}
         </ul>
