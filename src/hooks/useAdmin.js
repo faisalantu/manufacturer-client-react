@@ -8,7 +8,6 @@ const useAdmin = (user) => {
   const { isLoading, data:isAdmin, refetch } = useQuery("isAdmin", async () => {
     if(email){
       const res = await axios.get(`/user/admin`);
-      console.log(res.data);
       return res.data;
     }
   });
