@@ -1,26 +1,29 @@
 import axios from "../axiosConfig";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import auth from "../firebase.init";
 import { useAuthState } from "react-firebase-hooks/auth";
 import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
 
 const AddProduct = () => {
   const [user] = useAuthState(auth);
-  const titleRef = useRef("");
-  const imageUrlRef = useRef("");
-  const priceRef = useRef("");
-  const descriptionRef = useRef("");
-  const quantityRef = useRef("");
   const [fetchingProduct, setFetchingProduct] = useState(false)
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+
+  const {
+    register,
+    handleSubmit,
+    reset
+  } = useForm();
+
+
+  const onSubmit = async (fromData) => {
     const data = {
-      title: titleRef.current.value,
-      imageUrl: imageUrlRef.current.value,
-      description: descriptionRef.current.value,
-      price: priceRef.current.value,
-      quantity: quantityRef.current.value,
+      title: fromData.title,
+      imageUrl: fromData.imageUrl,
+      description: fromData.description,
+      price: fromData.price,
+      quantity: fromData.quantity,
       userEmail: user?.email,
       displayName: user?.displayName,
     };
@@ -34,6 +37,7 @@ const AddProduct = () => {
         
       );
       toast.dismiss()
+      reset()
       setFetchingProduct(false)
       // console.log(res);
       toast.success(res?.data?.message)
@@ -49,7 +53,7 @@ const AddProduct = () => {
     <div className='my-5 md:col-span-2'>
       <form
         className='shadow-lg border overflow-hidden rounded-lg lg:w-8/12 mx-auto'
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit(onSubmit)}
       >
         <div className='shadow sm:rounded-md sm:overflow-hidden'>
           <div className='px-4 py-5 bg-white space-y-6 sm:p-6'>
@@ -63,11 +67,12 @@ const AddProduct = () => {
               <div className='mt-1'>
                 <input
                   id='title'
-                  ref={titleRef}
+                  {...register("title", { required: true })}
                   className='p-2 shadow-sm outline-none focus:ring-stone-500 focus:border-stone-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md'
                   placeholder='Product Name'
                   defaultValue={""}
                   required
+                  autoFocus
                 />
               </div>
               <p className='mt-2 text-sm text-gray-500 select-none'>
@@ -91,7 +96,7 @@ const AddProduct = () => {
                     type='text'
                     className='border px-2 outline-none focus:border-stone-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300'
                     placeholder='www.example.com'
-                    ref={imageUrlRef}
+                    {...register("imageUrl", { required: true })}
                     required
                   />
                 </div>
@@ -113,7 +118,7 @@ const AddProduct = () => {
                     placeholder='0'
                     defaultValue={""}
                     type='number'
-                    ref={quantityRef}
+                    {...register("quantity", { required: true })}
                     required
                   />
                 </div>
@@ -132,7 +137,7 @@ const AddProduct = () => {
                     placeholder='0'
                     defaultValue={""}
                     type='number'
-                    ref={priceRef}
+                    {...register("price", { required: true })}
                     required
                   />
                 </div>
@@ -149,7 +154,7 @@ const AddProduct = () => {
               <div className='mt-1'>
                 <textarea
                   id='description'
-                  ref={descriptionRef}
+                  {...register("description", { required: true })}
                   rows={3}
                   className='p-2 shadow-sm outline-none focus:ring-stone-500 focus:border-stone-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md'
                   placeholder='you@example.com'
