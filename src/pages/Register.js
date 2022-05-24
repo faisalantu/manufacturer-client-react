@@ -65,7 +65,6 @@ const Register = () => {
         if (userData.fullName.length > 0) {
           try {
             createUserWithEmailAndPassword(userData.email, userData.passowrd1).then(()=>{
-              console.log(userData);
               updateProfile({
               displayName:userData.fullName,
             });
@@ -73,7 +72,7 @@ const Register = () => {
             })
             
           } catch (err) {
-            console.log(err);
+
             //handle error
           }
         } else {
