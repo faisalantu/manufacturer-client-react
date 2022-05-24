@@ -1,13 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "../axiosConfig";
 import { useQuery } from "react-query";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
 import { useForm } from "react-hook-form";
 import Loading from "../components/Loading";
+import { toast } from 'react-hot-toast';
 
 const Profile = () => {
   const [user] = useAuthState(auth);
+  const [isUpdatingProfile, setIsUpdatingProfile] = useState(false)
 
   const {
     isLoading,
@@ -15,8 +17,6 @@ const Profile = () => {
     refetch,
   } = useQuery("oneUser", async () => {
     const res = await axios.get(`/user/all?userEmail=${user?.email}`);
-    console.log(res.data[0]);
-    console.log(user.email);
     return res.data[0];
   });
 
@@ -26,11 +26,19 @@ const Profile = () => {
     const data = {
       address: fromData.address,
       displayName: fromData.displayName,
+      phone: fromData?.phone,
+      education: fromData?.education,
     };
 
     try {
+      setIsUpdatingProfile(true)
       await axios.put(`/user?userId=${userData._id}`, data);
-    } catch (err) {}
+      toast.success("Profile updated")
+      setIsUpdatingProfile(false)
+    } catch (err) {
+      toast.error("something went wrong please try again")
+      setIsUpdatingProfile(false)
+    }
   };
 
   useEffect(() => {
@@ -78,8 +86,26 @@ const Profile = () => {
                 defaultValue={userData?.address}
               />
             </div>
+            <div className='mb-6'>
+              <input
+                type='text'
+                className='input w-full'
+                placeholder='phone'
+                {...register("phone")}
+                defaultValue={userData?.phone}
+              />
+            </div>
+            <div className='mb-6'>
+              <input
+                type='text'
+                className='input w-full'
+                placeholder='education'
+                {...register("education")}
+                defaultValue={userData?.education}
+              />
+            </div>
 
-            <button className='btn w-full'>Update profile</button>
+            <button className={`btn w-full ${isUpdatingProfile?"loading disabled":""}`}>Update profile</button>
           </form>
         </div>
       </div>
