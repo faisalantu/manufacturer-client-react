@@ -8,7 +8,7 @@ function CustomLink({ children, to, ...props }) {
     return (
       <div>
         <Link
-          className={`${match?"text-rose-600 font-semibold border-b border-stone-400":null}`}
+          className={`${match?"text-rose-600 font-semibold underline border-stone-400":null} hover:bg-gray-200 px-3 py-3 rounded-lg w-full block`}
           to={to}
           {...props}
         >
