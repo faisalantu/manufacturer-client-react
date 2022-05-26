@@ -23,7 +23,6 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
     await signInWithEmailAndPassword(data.email, data.password);
     createToken(data.email);
   };
@@ -66,7 +65,6 @@ const Login = () => {
   useEffect(() => {
     let from = location.state?.from?.pathname || "/";
     if (googleAuthUser) {
-      console.log(googleAuthUser);
       createToken(googleAuthUser.user.email);
     }
     if (googleAuthUser || passwordAuthUser || isToken) {
