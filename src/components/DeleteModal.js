@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { MdDelete } from "react-icons/md";
 import axios from "../axiosConfig";
-const DeleteModal = ({ pid,fetchProducts }) => {
+const DeleteModal = ({ pid,fetchProducts,url,status }) => {
   const [showModal, setShowModal] = useState(false);
   const onDelete = async (e) => {
     e.preventDefault();
@@ -11,7 +11,7 @@ const DeleteModal = ({ pid,fetchProducts }) => {
       productId: pid,
     };
     try {
-      await axios.delete("/product/one", {
+      await axios.delete(url?url:"/product/one", {
         data: data,
       });
 
@@ -25,6 +25,7 @@ const DeleteModal = ({ pid,fetchProducts }) => {
   return (
     <>
       <button
+      disabled={status?status:false}
         onClick={() => setShowModal(true)}
         className='btn btn-secondary btn-xs ml-2'
       >
