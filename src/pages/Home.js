@@ -5,6 +5,7 @@ import Banner from "./../components/Banner";
 import { useQuery } from "react-query";
 import Loading from "../components/Loading";
 import ReviewCard from "./../components/ReviewCard";
+import Skills from "./../components/Skills";
 
 const Home = () => {
   const { isLoading, data: products } = useQuery("homeProducts", async () => {
@@ -106,6 +107,56 @@ const Home = () => {
           })}
         </div>
       </div>
+
+      <h1 className='text-center mt-32 mb-5 font-bold text-5xl'>
+          Lets <span className="text-primary">Connect</span> 
+        </h1>
+      <div className='flex flex-col-reverse md:flex-row items-center pt-12 text-gray-800 mt-5'>
+        <div className='md:w-6/12'>
+          <form className='md:w-8/12 s overflow-hidden rounded-lg p-5'>
+
+            <div>
+              <label
+                htmlFor='about'
+                className='block text-sm font-medium text-gray-700'
+              >
+                Your Email
+              </label>
+              <div className='mt-1'>
+                <input
+                  type='email'
+                  placeholder='Type here'
+                  class='input input-bordered input-primary w-full max-w-xs'
+                />
+              </div>
+              <p className='my-2 text-sm text-gray-500 select-none'>
+                We won't share your email with ohters 🐶🎃🌲
+              </p>
+            </div>
+            <div>
+              <div type='submit' className='btn btn-primary'>
+                Subscribe
+              </div>
+            </div>
+          </form>
+        </div>
+        <div className='md:w-6/12 flex items-center justify-center flex-col mb-6 md:mb-0'>
+          <div className='mt-10 md:mt-0 text-center md:text-left'>
+            <h1 className='text-3xl sm:text-3xl font-bold '>
+              Get in touch <span className='text-primary'></span>
+            </h1>
+            <h1 className='text-3xl sm:text-3xl font-bold '>
+              <span className=''> With us</span>
+            </h1>
+            <p className='mt-5'>
+              We already handle all for you. <br /> All you have to do is signup
+              and continue useing our service
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <Skills />
     </div>
   );
 };
