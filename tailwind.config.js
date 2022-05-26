@@ -8,5 +8,5 @@ module.exports = {
   daisyui: {
     themes: ["autumn"],
   },
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"),require('@tailwindcss/line-clamp'),],
 }
