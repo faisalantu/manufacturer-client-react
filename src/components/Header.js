@@ -25,7 +25,7 @@ const Header = () => {
       <div className='navbar bg-base-200 container mx-auto'>
         <div className='flex-1'>
           <Link to={"/"} className='btn btn-ghost normal-case text-xl'>
-            daisyUI
+            Paint IT
           </Link>
         </div>
         <div className='flex-none gap-2'>
