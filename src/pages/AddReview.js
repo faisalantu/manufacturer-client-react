@@ -124,7 +124,7 @@ const AddReview = () => {
                 isUpdatingProfile ? "loading disabled" : ""
               }`}
             >
-              Update profile
+              Add Review
             </button>
           </form>
         </div>
