@@ -20,7 +20,6 @@ const CheckoutForm = ({ order, price }) => {
       const res = await axios.patch("/payment/create-payment-intent", {
         price: price,
       });
-      console.log(res.data);
       if (res.data?.clientSecret) {
         setClientSecret(res.data.clientSecret);
       }
