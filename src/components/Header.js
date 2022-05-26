@@ -31,12 +31,15 @@ const Header = () => {
         <div className='flex-none gap-2'>
           <div>
             <ul className='flex gap-4 items-center'>
-              <li>
+              <li className="hidden md:block">
                 <CustomLink to={"/"}> Home</CustomLink>
               </li>
               <li>
                 <CustomLink to={"/blogs"}> Blogs</CustomLink>
               </li>
+              <li>
+                  <CustomLink to={"/portfolio"}> Portfolio</CustomLink>
+                </li>
               <li>
                 <div className='navbar-end w-full text-right text-black'>
                   <label
@@ -69,9 +72,7 @@ const Header = () => {
                 tabIndex='0'
                 className='mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52'
               >
-                <li>
-                  <Link to={"/portfolio"}> Portfolio</Link>
-                </li>
+                
 
                 {user ? (
                   <li>
